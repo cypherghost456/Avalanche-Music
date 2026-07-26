@@ -5,16 +5,6 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
-export interface HealthStatus {
-  status: string;
-}
-
-export interface Message {
-  id: number;
-  name: string;
-  body: string;
-  createdAt: string;
-}
 
 export interface MessageInput {
   /**
@@ -28,4 +18,3 @@ export interface MessageInput {
      */
   body: string;
 }
-

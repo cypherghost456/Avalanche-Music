@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: messages
+    description: Fan wall messages
 paths:
   /healthz:
     get:
@@ -24,6 +26,42 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /messages:
+    get:
+      operationId: listMessages
+      tags: [messages]
+      summary: List fan wall messages
+      description: Returns all approved fan messages newest-first
+      responses:
+        "200":
+          description: List of messages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Message"
+    post:
+      operationId: createMessage
+      tags: [messages]
+      summary: Post a fan wall message
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MessageInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Message"
+        "400":
+          description: Validation error
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +72,35 @@ components:
       required:
         - status
 
+    Message:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        body:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+        - body
+        - createdAt
+
+    MessageInput:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 60
+        body:
+          type: string
+          minLength: 1
+          maxLength: 280
+      required:
+        - name
+        - body
