@@ -1,6 +1,6 @@
 {
-  "buildCommand": "pnpm --dir artifacts/avalanche build",
-  "installCommand": "pnpm install",
+  "buildCommand": "cd artifacts/avalanche && pnpm install && pnpm build",
+  "installCommand": "cd artifacts/avalanche && pnpm install",
   "outputDirectory": "artifacts/avalanche/dist",
   "framework": "vite",
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
