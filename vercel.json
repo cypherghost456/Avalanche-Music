@@ -1,4 +1,5 @@
 {
+  "version": 2,
   "buildCommand": "pnpm --dir artifacts/avalanche build",
   "outputDirectory": "artifacts/avalanche/dist",
   "framework": "vite",
