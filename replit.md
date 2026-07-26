@@ -1,44 +1,54 @@
-# [Project name]
+# Avalanche — avalanchemusic.com
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+A luxury digital vinyl record website for the album "Avalanche" by Sumair (Cypher Ghost). Single-page music experience with a full-featured interactive audio player.
 
 ## Run & Operate
 
-- `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
+- `pnpm --filter @workspace/avalanche run dev` — run the frontend (port 25862)
+- `pnpm --filter @workspace/api-server run dev` — run the API server (port 8080)
 - `pnpm run typecheck` — full typecheck across all packages
-- `pnpm run build` — typecheck + build all packages
-- `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
-- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- Required env: `DATABASE_URL` — Postgres connection string
 
 ## Stack
 
 - pnpm workspaces, Node.js 24, TypeScript 5.9
-- API: Express 5
-- DB: PostgreSQL + Drizzle ORM
-- Validation: Zod (`zod/v4`), `drizzle-zod`
-- API codegen: Orval (from OpenAPI spec)
-- Build: esbuild (CJS bundle)
+- Frontend: React + Vite (artifacts/avalanche)
+- Styling: Tailwind CSS v4, Playfair Display + Inter (Google Fonts)
+- Icons: Lucide React
+- Contact form: @formspree/react (endpoint: mjgnpadd)
+- Audio: native HTML5 `<audio>` element via useRef
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
-
-## Architecture decisions
-
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- `artifacts/avalanche/src/App.tsx` — main single-page app with all state, player logic, and all sections
+- `artifacts/avalanche/src/index.css` — full Old Money theme (charcoal #0d0d0d, cream #F8F4E9, gold #c9a84c)
+- `attached_assets/` — all 14 MP3 track files + generated cover.jpg album art
+- `artifacts/avalanche/index.html` — OG/Twitter meta tags for link previews
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+**Sections:**
+1. **Hero** — Full-viewport "Avalanche" serif headline with scroll-down cue
+2. **I. The Record** — Tracklist of 14 tracks with play/pause, download per-track, and "Download All"
+3. **II. The Curator** — Artist bio centered column
+4. **III. Leave a Mark** — Formspree contact form
+5. **Footer** — "Stay Cool ❄️" sign-off, © 2026
+
+**Interactive Player:**
+- Mini sticky bar slides up when a track plays; entire bar is clickable to open expanded view
+- Full-screen expanded player with blurred album art background, spinning vinyl animation, draggable progress bar, skip/shuffle controls, volume slider, and "Up Next" list
+- Auto-advances to next track on end; shuffle support
 
 ## User preferences
 
-_Populate as you build — explicit user instructions worth remembering across sessions._
+- Design: Old Money & Professional — charcoal, cream, antique gold, Playfair Display serif headings, no drop-shadows, 1px borders, massive negative space
+- No emojis anywhere in UI except footer and Formspree success message
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- Audio files in attached_assets/ have long timestamp-suffixed filenames — do not rename them, they are imported via `@assets/` Vite alias
+- Google Fonts `@import url(...)` must be the very first line in index.css — PostCSS fails silently if placed after other imports
+- Formspree form ID: mjgnpadd (endpoint: https://formspree.io/f/mjgnpadd)
+- OG image URL is hardcoded to https://avalanchemusic--sumair.replit.app/attached_assets/cover.jpg in index.html
 
 ## Pointers
 

@@ -1,0 +1,27 @@
+kind = "web"
+previewPath = "/"
+title = "Avalanche | avalanchemusic.com"
+version = "1.0.0"
+id = "artifacts/avalanche"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25862
+
+[services.development]
+run = "pnpm --filter @workspace/avalanche run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/avalanche", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/avalanche/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25862"
+BASE_PATH = "/"
